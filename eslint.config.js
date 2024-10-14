@@ -1,30 +1,35 @@
-import globals from 'globals';
-import pluginReact from 'eslint-plugin-react';
+import reactPlugin from 'eslint-plugin-react';
 
 export default [
   {
-    files: ['**/*.{js,mjs,cjs,jsx}'],
-    ignores: ['vendor/**', 'node_modules/**'], 
+    files: ['**/*.js', '**/*.jsx'],
     languageOptions: {
-      globals: globals.browser,
-    },
-    settings: {
-      react: {
-        version: 'detect',
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
       },
     },
-    ...pluginReact.configs.flat.recommended,
-    rules: {
-      'react/prop-types': 'warn',
-      'react/jsx-uses-react': 'error',
-      'react/jsx-uses-vars': 'error',
-      'no-unused-vars': 'warn',
-      'semi': ['error', 'always'],
-      'quotes': ['error', 'single'],
-      'indent': ['error', 2],  
-      'react/jsx-indent': ['error', 2],  
-      'react/jsx-indent-props': ['error', 2],  
-      'react/jsx-props-no-spreading': 'warn'  
+    plugins: {
+      react: reactPlugin,
     },
+    rules: {
+      'react/react-in-jsx-scope': 'off',
+      'no-unused-vars': 'warn',
+      'indent': ['error', 2], // Отступы в 2 пробела
+      'quotes': ['error', 'single'], // Кавычки
+      'semi': ['error', 'always'], // Точка с запятой
+      'react/jsx-indent': ['error', 2], // Отступы в JSX
+      'react/jsx-indent-props': ['error', 2], // Отступы для свойств JSX
+      'no-unused-vars': 'off',
+    },
+    ignores: [
+      'vendor/**',
+      'node_modules/**',
+      'public/**',
+      '*.min.js',
+    ],
   },
 ];
