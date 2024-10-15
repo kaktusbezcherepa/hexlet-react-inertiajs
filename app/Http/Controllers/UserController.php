@@ -4,15 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class UserController extends Controller
-{
-    public function create()
+{   
+    public function index()
     {
-        return view('users.create');
+        $users = User::all();
+        return Inertia::render('Users/Index', ['users' => $users]);
     }
 
-    public function store(Request $request){
+    
+    public function create()
+    {
+        return Inertia::render('Users/Create');
+    }
+
+    public function store(Request $request)
+    {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
@@ -22,7 +31,6 @@ class UserController extends Controller
 
         User::create($validatedData);
 
-        return redirect()->route('users.index')->with('success', 'User created');
-        
+        return redirect()->route('users.index')->with('success', 'Пользователь создан');
     }
 }

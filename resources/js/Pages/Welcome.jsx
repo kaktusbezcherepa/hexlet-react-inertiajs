@@ -6,7 +6,7 @@ export default function Welcome() {
     <Container fluid className="d-flex justify-content-center align-items-center vh-100">
       <Form noValidate className="w-50">         
         <Form.Group className='mb-3' controlId="validationCustom01">
-          <Form.Label>Имя</Form.Label>
+          <Form.Label>ФИО</Form.Label>
           <Form.Control
             required
             type="text"
@@ -16,11 +16,11 @@ export default function Welcome() {
         </Form.Group>                                        
         
         <Form.Group className='mb-3' controlId="validationCustom02">
-          <Form.Label>Фамилия</Form.Label>
+          <Form.Label>E-mail</Form.Label>
           <Form.Control
             required
             type="text"
-            placeholder="Пупкин"
+            placeholder="test@gmail.com"
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
         </Form.Group>       
