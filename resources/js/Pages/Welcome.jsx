@@ -1,9 +1,12 @@
 import React from 'react';
 import { Button, Col, Form, Container, Row } from 'react-bootstrap';
+import { Link } from '@inertiajs/react';
 
 export default function Welcome() {
   return (
+    
     <Container fluid className="d-flex justify-content-center align-items-center vh-100">
+      {/* <Link href='/users'><Button>переход</Button></Link> */}
       <Form noValidate className="w-50">         
         <Form.Group className='mb-3' controlId="validationCustom01">
           <Form.Label>ФИО</Form.Label>

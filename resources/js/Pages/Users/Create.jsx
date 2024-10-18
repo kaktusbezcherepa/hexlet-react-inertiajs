@@ -1,7 +1,7 @@
 // resources/js/Pages/Users/Create.jsx
 import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
-import { Link } from '@inertiajs/inertia-react';
+import { Link } from '@inertiajs/react';
 
 const Create = () => {
   const [formData, setFormData] = useState({
@@ -18,7 +18,7 @@ const Create = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    Inertia.post('/users', formData); // Отправляем данные на сервер
+    Inertia.post('/users', formData); 
   };
 
   return (

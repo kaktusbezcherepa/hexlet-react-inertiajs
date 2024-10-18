@@ -1,8 +1,28 @@
 // resources/js/Pages/Users/Index.jsx
 import React from 'react';
-import { Link } from '@inertiajs/inertia-react';
+import { Link } from '@inertiajs/react';
+import { Inertia } from '@inertiajs/inertia';
 
 const Index = ({ users }) => {
+  
+
+  const handleDelete = (id) => {
+    const confirmation = confirm('Вы уверены, что хотите удалить этого пользователя?');
+    
+    if (confirmation) {
+      Inertia.delete(`/users/${id}`, {
+        onSuccess: () => {
+          alert('Пользователь успешно удалён');
+          window.location.reload();
+        },
+        onError: (errors) => {
+          console.error(errors);
+          alert('Произошла ошибка при удалении пользователя');
+        }
+      }); 
+    }
+  };
+
   return (
     <div>
       <h1>Список пользователей</h1>
@@ -25,8 +45,10 @@ const Index = ({ users }) => {
               <td>{user.gender}</td>
               <td>{user.date_of_birth}</td>
               <td>
-                <Link href={`/users/${user.id}`}>Просмотр</Link>
-                <Link href={`/users/${user.id}/edit`}>Редактировать</Link>
+                <Link href={`/users/${user.id}/edit`}>Редактировать</Link> | {' '}
+                <button onClick={() => handleDelete(user.id)}>
+                  Удалить
+                </button>
               </td>
             </tr>
           ))}
