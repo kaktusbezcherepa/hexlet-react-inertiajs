@@ -10,6 +10,7 @@ const Index = ({ users }) => {
     const confirmation = confirm('Вы уверены, что хотите удалить этого пользователя?');
     
     if (confirmation) {
+      console.log(id);
       Inertia.delete(`/users/${id}`, {
         onSuccess: () => {
           alert('Пользователь успешно удалён');
@@ -46,9 +47,7 @@ const Index = ({ users }) => {
               <td>{user.date_of_birth}</td>
               <td>
                 <Link href={`/users/${user.id}/edit`}>Редактировать</Link> | {' '}
-                <button onClick={() => handleDelete(user.id)}>
-                  Удалить
-                </button>
+                <button onClick={() => handleDelete(user.id)}> Удалить</button>
               </td>
             </tr>
           ))}
