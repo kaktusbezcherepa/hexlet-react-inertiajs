@@ -1,51 +1,73 @@
-// resources/js/Pages/Users/Create.jsx
-import React, { useState } from 'react';
-import { Inertia } from '@inertiajs/inertia';
-import { Link } from '@inertiajs/react';
+import React from 'react';
+import { useForm, Link } from '@inertiajs/react';
 
 const Create = () => {
-  const [formData, setFormData] = useState({
+  const { data, setData, post, processing, errors } = useForm({
     name: '',
     email: '',
     gender: '',
     date_of_birth: '',
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    Inertia.post('/users', formData); 
+    post('/users', {
+      preserveState: true,
+    });
   };
 
   return (
     <div>
-      <h1>Создать пользователя</h1>
+      <h1>Создать нового пользователя</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Имя:</label>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+          <label htmlFor="name">Имя:</label>
+          <input
+            id="name"
+            type="text"
+            value={data.name}
+            onChange={e => setData('name', e.target.value)}
+          />
+          {errors.name && <div>{errors.name}</div>}
         </div>
+
         <div>
-          <label>Email:</label>
-          <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+          <label htmlFor="email">Email:</label>
+          <input
+            id="email"
+            type="email"
+            value={data.email}
+            onChange={e => setData('email', e.target.value)}
+          />
+          {errors.email && <div>{errors.email}</div>}
         </div>
+
         <div>
-          <label>Пол:</label>
-          <select name="gender" value={formData.gender} onChange={handleChange} required>
+          <label htmlFor="gender">Пол:</label>
+          <select
+            id="gender"
+            value={data.gender}
+            onChange={e => setData('gender', e.target.value)}
+          >
             <option value="">Выберите пол</option>
-            <option value="male">Мужчина</option>
-            <option value="female">Женщина</option>
+            <option value="male">Мужской</option>
+            <option value="female">Женский</option>
           </select>
+          {errors.gender && <div>{errors.gender}</div>}
         </div>
+
         <div>
-          <label>Дата рождения:</label>
-          <input type="date" name="date_of_birth" value={formData.date_of_birth} onChange={handleChange} required />
+          <label htmlFor="date_of_birth">Дата рождения:</label>
+          <input
+            id="date_of_birth"
+            type="date"
+            value={data.date_of_birth}
+            onChange={e => setData('date_of_birth', e.target.value)}
+          />
+          {errors.date_of_birth && <div>{errors.date_of_birth}</div>}
         </div>
-        <button type="submit">Создать</button>
+
+        <button type="submit" disabled={processing}>Создать</button>
       </form>
       <Link href="/users">Назад к списку пользователей</Link>
     </div>

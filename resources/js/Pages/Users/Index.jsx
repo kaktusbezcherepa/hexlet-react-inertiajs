@@ -1,26 +1,24 @@
-// resources/js/Pages/Users/Index.jsx
 import React from 'react';
-import { Link } from '@inertiajs/react';
-import { Inertia } from '@inertiajs/inertia';
+import { Link, useForm } from '@inertiajs/react';
 
 const Index = ({ users }) => {
-  
+  const { delete: destroy } = useForm();
 
   const handleDelete = (id) => {
     const confirmation = confirm('Вы уверены, что хотите удалить этого пользователя?');
     
     if (confirmation) {
-      console.log(id);
-      Inertia.delete(`/users/${id}`, {
+      destroy(`/users/${id}`, {
+        preserveState: true,
+        preserveScroll: true,
         onSuccess: () => {
           alert('Пользователь успешно удалён');
-          window.location.reload();
         },
         onError: (errors) => {
           console.error(errors);
           alert('Произошла ошибка при удалении пользователя');
         }
-      }); 
+      });
     }
   };
 
