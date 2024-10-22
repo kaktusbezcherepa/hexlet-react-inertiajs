@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Inertia } from '@inertiajs/inertia';
+import { Inertia } from '@inertiajs/inertia-react';
 
 const Edit = ({ user }) => {
 
@@ -18,7 +18,7 @@ const Edit = ({ user }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    Inertia.post(`/users/${user.id}`, { ...formData, _method: 'PUT' });
+    Inertia.post(`users/${user.id}`, { ...formData, _method: 'PUT' });
   };
 
   return (

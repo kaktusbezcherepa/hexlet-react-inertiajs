@@ -6,19 +6,18 @@ const Index = ({ users }) => {
 
   const handleDelete = (id) => {
     const confirmation = confirm('Вы уверены, что хотите удалить этого пользователя?');
-    
+  
     if (confirmation) {
       destroy(`/users/${id}`, {
-        preserveState: true,
-        preserveScroll: true,
-        onSuccess: () => {
-          alert('Пользователь успешно удалён');
+        method: 'delete',
+        headers: {
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         },
-        onError: (errors) => {
-          console.error(errors);
-          alert('Произошла ошибка при удалении пользователя');
+        onSuccess: (response) => {
+          window.location.href = response.props.redirect;
         }
       });
+      
     }
   };
 
@@ -45,7 +44,8 @@ const Index = ({ users }) => {
               <td>{user.date_of_birth}</td>
               <td>
                 <Link href={`/users/${user.id}/edit`}>Редактировать</Link> | {' '}
-                <button onClick={() => handleDelete(user.id)}> Удалить</button>
+                <Link href={`/users/${user.id}`}>Просмотреть</Link> | {' '}
+                <button onClick={() => handleDelete(user.id)}>Удалить</button>
               </td>
             </tr>
           ))}

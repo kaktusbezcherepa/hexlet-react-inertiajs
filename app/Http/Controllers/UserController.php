@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {   
@@ -33,16 +34,15 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'Пользователь создан');
     }
 
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-        return Inertia::render('Users/Show', ['user' => $user]);
-    }
-
     public function edit($id)
     {
         $user = User::findOrFail($id);
         return Inertia::render('Users/Edit', ['user' => $user]);
+    }
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return Inertia::render('Users/Show', ['user' => $user]);
     }
 
     public function update(Request $request, $id)
@@ -61,9 +61,9 @@ class UserController extends Controller
     }
 
     public function destroy($id)
-    {
+    {   
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'Пользователь удалён');
+
     }
 }
